@@ -14,6 +14,7 @@ const tests = [
   require("./block-test"),
   require("./if-test"),
   require("./while-test"),
+  require("./lambda-function-test"),
 ];
 
 const eva = new Eva();
