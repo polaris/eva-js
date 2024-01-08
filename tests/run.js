@@ -12,6 +12,7 @@ const tests = [
   require("./logical-ops-test"),
   require("./math-test"),
   require("./self-eval-test"),
+  require("./switch-test"),
   require("./user-defined-function-test"),
   require("./variables-test"),
   require("./while-test"),
