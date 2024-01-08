@@ -4,6 +4,7 @@ const Environment = require("../Environment");
 const tests = [
   require("./block-test"),
   require("./built-in-function-test"),
+  require("./class-test"),
   require("./comparison-test"),
   require("./dec-test"),
   require("./for-test"),
