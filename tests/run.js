@@ -6,6 +6,7 @@ const tests = [
   require("./built-in-function-test"),
   require("./comparison-test"),
   require("./dec-test"),
+  require("./for-test"),
   require("./if-test"),
   require("./inc-test"),
   require("./lambda-function-test"),

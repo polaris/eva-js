@@ -89,6 +89,11 @@ class Eva {
       return this.eval(ifExp, env);
     }
 
+    if (exp[0] === "for") {
+      const whileExp = this._transformer.transformForToWhile(exp);
+      return this.eval(whileExp, env);
+    }
+
     if (exp[0] === "lambda") {
       const [_tag, params, body] = exp;
       return {

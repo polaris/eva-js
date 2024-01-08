@@ -18,6 +18,11 @@ class Transformer {
     }
     return ifExp;
   }
+
+  transformForToWhile(forExp) {
+    const [_tag, init, cond, modifier, exp] = forExp;
+    return ["begin", init, ["while", cond, ["begin", exp, modifier]]];
+  }
 }
 
 module.exports = Transformer;
