@@ -94,7 +94,7 @@ class Eva {
       return {
         params,
         body,
-        env
+        env,
       };
     }
 
