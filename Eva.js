@@ -93,18 +93,22 @@ class Eva {
     }
 
     if (Array.isArray(exp)) {
+      let result;
+      ExecutionStack.push(exp[0]);
       const fn = this.eval(exp[0], env);
       const args = exp.slice(1).map((arg) => this.eval(arg, env));
       if (typeof fn === "function") {
-        return fn(...args);
+        result = fn(...args);
+      } else {
+        const activationRecord = {};
+        fn.params.forEach((param, index) => {
+          activationRecord[param] = args[index];
+        });
+        const activationEnv = new Environment(activationRecord, fn.env);
+        result = this._evalBody(fn.body, activationEnv);
       }
-
-      const activationRecord = {};
-      fn.params.forEach((param, index) => {
-        activationRecord[param] = args[index];
-      });
-      const activationEnv = new Environment(activationRecord, fn.env);
-      return this._evalBody(fn.body, activationEnv);
+      ExecutionStack.pop();
+      return result;
     }
 
     throw new EvalError(`Unimplemented: ${JSON.stringify(exp)}`);
@@ -142,6 +146,8 @@ class Eva {
     return this.eval(body, env);
   }
 }
+
+const ExecutionStack = [];
 
 const GlobalEnvironment = new Environment({
   null: null,
@@ -183,6 +189,13 @@ const GlobalEnvironment = new Environment({
   },
   print(...args) {
     console.log(...args);
+  },
+  print_stack_trace() {
+    ExecutionStack.forEach((element, index, array) => {
+      if (index !== array.length - 1) {
+        console.log(element);
+      }
+    });
   },
 });
 
