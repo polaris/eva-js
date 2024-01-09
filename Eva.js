@@ -8,7 +8,7 @@ class Eva {
   }
 
   evalGlobal(exp) {
-    return this._evalBlock(exp, this.global);
+    return this._evalBody(exp, this.global);
   }
 
   eval(exp, env = this.global) {
