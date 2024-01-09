@@ -7,6 +7,10 @@ class Eva {
     this._transformer = new Transformer();
   }
 
+  evalGlobal(exp) {
+    return this._evalBlock(exp, this.global);
+  }
+
   eval(exp, env = this.global) {
     if (this._isBoolean(exp)) {
       return exp;
@@ -114,6 +118,11 @@ class Eva {
       const classEnv = new Environment({}, parentEnv);
       this._evalBody(body, classEnv);
       return env.define(name, classEnv);
+    }
+
+    if (exp[0] === "super") {
+      const [_tag, className] = exp;
+      return this.eval(className, env).parent;
     }
 
     if (exp[0] === "new") {
