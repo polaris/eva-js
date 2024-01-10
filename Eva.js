@@ -132,7 +132,10 @@ class Eva {
       const classEnv = this.eval(exp[1], env);
       const instanceEnv = new Environment({}, classEnv);
       const args = exp.slice(2).map((arg) => this.eval(arg, env));
-      this._callUserDefinedFunction(classEnv.lookup("constructor"), [instanceEnv, ...args]);
+      this._callUserDefinedFunction(classEnv.lookup("constructor"), [
+        instanceEnv,
+        ...args,
+      ]);
       return instanceEnv;
     }
 
@@ -150,10 +153,19 @@ class Eva {
     }
 
     if (exp[0] === "import") {
-      const [_tag, name] = exp;
+      const [_tag, symbols, name] =
+        exp.length === 2 ? [null, null, exp[1]] : exp;
       const moduleSrc = fs.readFileSync(`./modules/${name}.eva`, "utf-8");
       const body = evaParser.parse(`(begin ${moduleSrc})`);
-      const moduleExp = ["module", name, body];
+      let moduleExp;
+      if (exp.length === 2) {
+        moduleExp = ["module", name, body];
+      } else {
+        const filteredBody = body.filter(
+          (element, index) => index === 0 || symbols.includes(element[1])
+        );
+        moduleExp = ["module", name, filteredBody];
+      }
       return this.eval(moduleExp, this.global);
     }
 

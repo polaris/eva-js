@@ -26,4 +26,13 @@ module.exports = (eva) => {
     `,
     1000
   );
+
+  test(
+    eva,
+    `
+    (import (abs MAX_VALUE) Math)
+    (* (prop Math MAX_VALUE) ((prop Math abs) (- 10)))
+    `,
+    10000
+  );
 };
