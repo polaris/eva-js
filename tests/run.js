@@ -9,6 +9,7 @@ const tests = [
   require("./dec-test"),
   require("./for-test"),
   require("./if-test"),
+  require("./import-test"),
   require("./inc-test"),
   require("./lambda-function-test"),
   require("./logical-ops-test"),
