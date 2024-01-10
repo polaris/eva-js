@@ -13,6 +13,7 @@ const tests = [
   require("./lambda-function-test"),
   require("./logical-ops-test"),
   require("./math-test"),
+  require("./module-test"),
   require("./self-eval-test"),
   require("./switch-test"),
   require("./user-defined-function-test"),

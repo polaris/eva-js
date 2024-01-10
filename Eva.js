@@ -139,6 +139,14 @@ class Eva {
       return instanceEnv.lookup(name);
     }
 
+    if (exp[0] === "module") {
+      const [_tag, name, body] = exp;
+      const moduleEnv = new Environment({}, env);
+      this._evalBody(body, moduleEnv);
+      return env.define(name, moduleEnv);
+
+    }
+
     if (Array.isArray(exp)) {
       let result;
       ExecutionStack.push(exp[0]);
@@ -212,6 +220,9 @@ const GlobalEnvironment = new Environment({
     return op1 + op2;
   },
   "-"(op1, op2) {
+    if (!op2) {
+      return -op1;
+    }
     return op1 - op2;
   },
   "*"(op1, op2) {
