@@ -15,7 +15,7 @@ module.exports = (eva) => {
         (var MAX_VALUE 1000)
       )
     )
-    ((prop Math abs) 10)
+    ((prop Math abs) (- 10))
     `,
     10
   );
